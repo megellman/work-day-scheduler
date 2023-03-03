@@ -15,15 +15,20 @@
 
 I created a workday scheduler where a user can input content to each hourly time block. When they refresh the page, the content will remain. Additionally, when the page is loaded, hour blocks from 9am to 5pm are shown. Each hour block is either gray (if in the past), green (if present), or red if in the future.
 
-![Landing Page](./work-day-scheduler.gif)
+![Landing Page](./assets/images/work-day-scheduler.gif)
 
 ## Table of Contents
 
-* [Work Day Scheduler Code Example](#work-day-scheduler-code-example)
-* [Learning Points](#learning-points)
-* [Author Info](#author-info)
-* [Credits](#credits)
-* [License](#license)
+- [Work Day Scheduler](#work-day-scheduler)
+  - [Technology Used](#technology-used)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Work Day Scheduler Code Example](#work-day-scheduler-code-example)
+  - [Learning Points](#learning-points)
+  - [Author Info](#author-info)
+    - [Megan Ellman](#megan-ellman)
+  - [Credits](#credits)
+  - [License](#license)
 
 ## Work Day Scheduler Code Example
 
