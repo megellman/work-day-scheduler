@@ -2,42 +2,42 @@ $(function () {
     var currentDay = dayjs().format('MMM DD, YYYY')
     $('#currentDay').append(currentDay);
     var now = Number((dayjs().format('H')));
+    console.log( now)
     var container = $('.container-lg');
     for (var i = 9; i < 18; i++) {
         // Creating elements 
-        var content = JSON.parse(localStorage.getItem(`Hour-${i}`));
-        var time = (dayjs().hour(i).format('H'));
-        var timeBlockDiv = $('<div>').addClass('row time-block future').attr('id', time);
-        var textArea = $('<textarea>').addClass('col-8 col-md-10 description').text(content);
-        var hour = $('<div>').addClass('col-2 col-md-1 hour text-center py-3').text(dayjs().hour(i).format('hA')).attr('id', i);
+        var hourBlock = JSON.parse(localStorage.getItem(`Hour-${i}`));
+        var timeLongFormat = (dayjs().hour(i).format('H'));
+        var timeBlockDiv = $('<div>').addClass('row time-block future').attr('id', timeLongFormat);
+        var hourInfoSection = $('<textarea>').addClass('col-8 col-md-10 description').text(hourBlock);
+        var hourTextArea = $('<div>').addClass('col-2 col-md-1 hour text-center py-3').text(dayjs().hour(i).format('hA')).attr('id', i);
         var saveBtn = $('<button>').addClass('btn saveBtn col-2 col-md-1');
         var icon = $('<i>').addClass('fas fa-save');
-        timeBlockDiv.append(hour);
-        timeBlockDiv.append(textArea);
+        // append elements
+        timeBlockDiv.append(hourTextArea);
+        timeBlockDiv.append(hourInfoSection);
         timeBlockDiv.append(saveBtn);
         saveBtn.append(icon);
         container.append(timeBlockDiv);
-        var timeNumber = hour.text().split('')
-        if(timeNumber.length > 3){
-            finalNumber = timeNumber[0].concat(timeNumber[1])
+        
+        if (i < now) {
+            console.log(i + "<" + now + "" + "past")
+            timeBlockDiv.removeClass('future present');
+            timeBlockDiv.addClass('past');
+        } else if (i > now) {
+            console.log(i + ">" + now + "" + "future")
+            timeBlockDiv.removeClass('past present');
+            timeBlockDiv.addClass('future');
         } else {
-            finalNumber = timeNumber[0]
+            console.log("current")
+            timeBlockDiv.removeClass('past future');
+            timeBlockDiv.addClass('present');
         }
-            if (finalNumber < now) {
-                timeBlockDiv.removeClass('future present');
-                timeBlockDiv.addClass('past');
-            } else if (finalNumber > now) {
-                timeBlockDiv.removeClass('past present');
-                timeBlockDiv.addClass('future');
-            } else {
-                timeBlockDiv.removeClass('past future');
-                timeBlockDiv.addClass('present');
-            }
     }
     container.on('click', '.saveBtn', function () {
-        var currentEl = $(this).prev('textarea').val();
+        var currentEl = $(this).prev('hourInfoSection').val();
         var hour = (Number($(this).parent()[0].id));
-        if(hour > 12){hour = hour - 12;}
+        if (hour > 12) { hour = hour - 12; }
         hour = 'Hour-' + hour;
         localStorage.setItem(hour, JSON.stringify(currentEl));
     })
